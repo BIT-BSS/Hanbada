@@ -1,3 +1,5 @@
 front/.streamlit/
 preprocessing/data/
 preprocessing/kkey.py
+.DS_Store
+*.pyc
