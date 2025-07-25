@@ -10,3 +10,4 @@ langchain-chroma
 chromadb
 pandas
 protobuf<5
+ultralytics
