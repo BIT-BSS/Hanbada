@@ -1,6 +1,6 @@
 streamlit
-numpy<2.0.0
-opencv-python-headless==4.5.1.48
+numpy
+opencv-python-headless
 nest-asyncio
 lark
 pysqlite3-binary
