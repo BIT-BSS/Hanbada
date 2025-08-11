@@ -1,6 +1,6 @@
 streamlit
 numpy<2.0.0
-opencv-python-headless
+opencv-python
 nest-asyncio
 lark
 google-api-python-client
