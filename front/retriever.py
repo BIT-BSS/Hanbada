@@ -21,6 +21,17 @@ from langchain.chains.query_constructor.base import (
     get_query_constructor_prompt,
 )
 
+import asyncio
+import nest_asyncio
+
+# 이벤트 루프 설정
+try:
+    loop = asyncio.get_event_loop()
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+nest_asyncio.apply()
+
 gemini_api_key = st.secrets['GEMINI_API_KEY']
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0, google_api_key=gemini_api_key)
 # 임베딩도 Gemini로 교체
