@@ -8,7 +8,8 @@ from yeardistribution import YearDistribution
 
 from datetime import datetime, timedelta
 
-import sqlite3
+import pysqlite3
+sys.modules['sqlite3'] = pysqlite3
 
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser

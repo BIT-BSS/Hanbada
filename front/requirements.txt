@@ -3,6 +3,7 @@ numpy<2.0.0
 opencv-python-headless
 nest-asyncio
 lark
+pysqlite3
 google-api-python-client
 google-auth
 google-auth-oauthlib
