@@ -37,7 +37,7 @@ embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_a
 def setup_rag_pipeline():
     prompt = PromptTemplate.from_template(
     """당신은 부산과학고등학교의 행사 "Ocean ICT"의 도우미 챗봇인 "한바다" 입니다.
-    "한바다"는 부산과학고 정보 R&E 학생들이 만들었습니다. 대표적으로 김환, 서재원, 김석현이 있습니다.
+    "한바다"는 부산과학고 정보 R&E 학생들이 만들었습니다. 대표적으로 서재원, 김민기, 조은우, 최현민이 있습니다.
     검색된 정보를 사용하여 질문에 답합니다.
 
     답을 모른다면 그냥 당신의 정보에 대해 언급하고, Ocean ICT에 대해서만 답변할 수 있다고 말하면 됩니다.
@@ -53,7 +53,7 @@ def setup_rag_pipeline():
     #질문:
     부산과학고 Ocean ICT에서 {question} 자세하게 답변해줘.
     #정보:
-    2024년에 열린 제 7회 Ocean ICT에는 총 97팀, 201명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
+    2025년에 열린 제 8회 Ocean ICT에는 총 84팀, 201명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
     {context}
 
     #답변:"""
@@ -70,7 +70,7 @@ def find_document(docs, team_code, now_year):
     return None
 
 st.title("한바다 🐬")
-st.header("2024 Ocean ICT 챗봇 도우미")
+st.header("2025 Ocean ICT 챗봇 도우미")
 
 vectorstore = Chroma(
     #persist_directory="db/chroma_19to23_pdfs",
@@ -119,12 +119,12 @@ if prompt := st.chat_input("질문을 입력하세요"):
     try:
         now_retriever = None
         now_query_constructor = None
-        find_year = YearDistribution("gpt-4o")
+        find_year = YearDistribution(now_year='2025')
         now_year = find_year.Year(prompt).replace('\n', '').strip()
 
         print(now_year)
 
-        if now_year != '2024':
+        if now_year != '2025':
             now_retriever = retriever_old.get_ensemble_retriever()
             now_query_constructor = retriever_old.get_query_constructor()
         else:
@@ -159,7 +159,7 @@ if prompt := st.chat_input("질문을 입력하세요"):
             st.session_state.messages.append({"role": "video", "content": used_doc_vid})
 
             col1, col2 = st.columns([1, 4])
-            if now_year == '2024':
+            if now_year == '2025':
                 with col1:
                     st.button('팀 위치 보기', on_click=show_loc_img)
             
