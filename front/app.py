@@ -73,13 +73,12 @@ st.title("한바다 🐬")
 st.header("2025 Ocean ICT 챗봇 도우미")
 
 vectorstore = Chroma(
-    #persist_directory="db/chroma_19to23_pdfs",
-    persist_directory="db/gem_chroma_24_pdfs",
+    persist_directory="db/gem_chroma_25",
     embedding_function=embeddings
 )
 vectorstore_old = Chroma(
     #persist_directory="db/chroma_19to23_pdfs",
-    persist_directory="db/gem_chroma_old_pdfs",
+    persist_directory="db/gem_chroma_oldfiles",
     embedding_function=embeddings
 )
 

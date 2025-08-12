@@ -89,6 +89,16 @@ class CustomRetriever():
             type="string"
         ),
         AttributeInfo(
+            name="Teammate #4 name",
+            description="A team member's name. name is two or three letters of Hangul.",
+            type="string"
+        ),
+        AttributeInfo(
+            name="Teammate #4 number",
+            description="A team member's student number. The student number is four digits.",
+            type="string"
+        ),
+        AttributeInfo(
             name="Physics",
             description="Whether Physics is used. Can be True or False",
             type="boolean"
