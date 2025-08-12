@@ -8,6 +8,7 @@ google-api-python-client
 google-auth
 google-auth-oauthlib
 google-auth-httplib2
+st-gsheets-connection
 langchain
 langchain-core
 langchain-community
@@ -18,3 +19,4 @@ pandas
 protobuf<5
 ultralytics
 packaging>=23.0
+orjson==3.9.15
