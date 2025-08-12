@@ -1,6 +1,6 @@
 streamlit
 numpy
-opencv-python-headless
+Pillow
 nest-asyncio
 lark
 pysqlite3-binary
