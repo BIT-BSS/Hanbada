@@ -1,4 +1,4 @@
-import cv2
+from PIL import Image, ImageDraw
 import numpy as np
 from copy import deepcopy
 

@@ -3,7 +3,7 @@ preprocessing/data/
 preprocessing/kkey.py
 .DS_Store
 *.pyc
-datasets/
 poster/
 DocLayout-YOLO/images/
 DocLayout-YOLO/labels/
+datasets/
