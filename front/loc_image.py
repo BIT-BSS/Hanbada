@@ -118,7 +118,7 @@ def get_location_image(team_code):
     line, idx, _ = booth[team_code]
     aisle_idx = get_aisle_for_booth(line, idx)
     tx = line_x[line]
-    ty = line_y_start[line] + (idx+1) * blockSize
+    ty = line_y_start[line] + (idx+1) * blockSize -1860
 
     cx, cy = hx, hy + 50
     box_half = 42
@@ -139,12 +139,12 @@ def get_location_image(team_code):
     draw.line([(aisle_x, ty), (tx, ty)], fill=(255, 0, 0), width=15)
 
     draw_triangle(draw, (tx, ty), direction)
-    makepin(edited, (pin_x, ty - 60))
+    makepin(edited, (pin_x, ty - 70))
 
     return edited
 
 # === 실행 예시 ===
-if __name__ == "__main__":
-    img = get_location_image("A09")
-    img.show()  # 화면에서 바로 보기
+#if __name__ == "__main__":
+#    img = get_location_image("B09")
+#    img.show()  # 화면에서 바로 보기
 
