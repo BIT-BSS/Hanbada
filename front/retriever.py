@@ -122,6 +122,11 @@ class CustomRetriever():
             name="Youtube link",
             description="A youtube video link from the team. The vido can be played by clicking on the link.",
             type="string"
+        ),
+        AttributeInfo(
+            name="Year",
+            description="The year that the team participated in the Ocean ICT event.",
+            type="string"
         )
     ]
     examples = [
@@ -136,14 +141,14 @@ class CustomRetriever():
             "김석현 학생은 뭐했어?",
             {
                 "query": "김석현",
-                "filter": 'or(eq("Teammate #1 name", "김석현"), eq("Teammate #2 name", "김석현"))',
+                "filter": 'or(eq("Teammate #1 name", "김석현"), eq("Teammate #2 name", "김석현"), eq("Teammate #3 name", "김석현"), eq("Teammate #4 name", "김석현"))',
             },
         ),
         (
             "고민재 알아?",
             {
                 "query": "고민재",
-                "filter": 'or(eq("Teammate #1 name", "고민재"), eq("Teammate #2 name", "고민재"))',
+                "filter": 'or(eq("Teammate #1 name", "고민재"), eq("Teammate #2 name", "고민재"), eq("Teammate #3 name", "고민재"), eq("Teammate #4 name", "고민재"))',
             },
         ),
         (
@@ -157,8 +162,22 @@ class CustomRetriever():
             "작년에 김환은 뭐했어?",
             {
                 "query": "작년, 김환",
-                "filter": 'or(eq("Year", "2023"), or(eq("Teammate #1 name", "김환"), eq("Teammate #2 name", "김환"))',
+                "filter": 'and(eq("Year", "2024"), or(eq("Teammate #1 name", "김환"), eq("Teammate #2 name", "김환"), eq("Teammate #3 name", "김환"), eq("Teammate #4 name", "김환")))',
             },
+        ),
+        (
+            "2021년에 참가한 모든 팀 알려줘.",
+            {
+                "query": "2021년",
+                "filter": 'eq("Year", "2021")',
+            }
+        ),
+        (
+            "작년 팀 전체 정보 알려줘.",
+            {
+                "query": "작년 팀 전체",
+                "filter": 'eq("Year", "2024")',
+            }
         ),
         (
             "환경에 관한 주제로 연구한 팀을 알려줄래?",
@@ -187,7 +206,7 @@ class CustomRetriever():
     def __init__(self, _vectorstore):
         self.vectorstore = _vectorstore
         self.query_prompt = get_query_constructor_prompt(
-            'Ocean ICT 대회에 참가한 팀의 작품 설명서.',
+            'Ocean ICT 대회에 참가한 팀의 작품 설명서. 질문에 연도(예: 작년, 2024년, 2023년 등)가 포함되면 해당 연도의 정보를 필터링해서 답변하세요.',
             self.metadata_field_info,
             examples=self.examples
         )
