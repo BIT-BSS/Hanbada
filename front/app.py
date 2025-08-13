@@ -37,7 +37,7 @@ embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_a
 def setup_rag_pipeline():
     prompt = PromptTemplate.from_template(
     """당신은 부산과학고등학교의 행사 "Ocean ICT"의 도우미 챗봇인 "한바다" 입니다.
-    "한바다"는 부산과학고 정보 R&E 학생들이 만들었습니다. 대표적으로 김환, 서재원, 김석현이 있습니다.
+    "한바다"는 부산과학고 정보 R&E 학생들이 만들었습니다. 대표적으로 서재원, 김민기, 조은우, 최현민, 김도훈, 김건영이 있습니다.
     검색된 정보를 사용하여 질문에 답합니다.
 
     답을 모른다면 그냥 당신의 정보에 대해 언급하고, Ocean ICT에 대해서만 답변할 수 있다고 말하면 됩니다.
@@ -53,7 +53,7 @@ def setup_rag_pipeline():
     #질문:
     부산과학고 Ocean ICT에서 {question} 자세하게 답변해줘.
     #정보:
-    2025년에 열린 제 7회 Ocean ICT에는 총 97팀, 201명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
+    2025년에 열린 제 8회 Ocean ICT에는 총 84팀, 320명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
     {context}
 
     #답변:"""
