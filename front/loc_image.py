@@ -111,7 +111,7 @@ def get_aisle_for_booth(line, idx):
     elif line == 4:
         return 3
 
-def arrow(team_code):
+def get_location_image(team_code):
     edited = deepcopy(background)
     draw = ImageDraw.Draw(edited)
 
@@ -144,6 +144,7 @@ def arrow(team_code):
     return edited
 
 # === 실행 예시 ===
-# if __name__ == "__main__":
-#     img = arrow("A09")
-#     img.show()  # 화면에서 바로 보기
+if __name__ == "__main__":
+    img = get_location_image("A09")
+    img.show()  # 화면에서 바로 보기
+
