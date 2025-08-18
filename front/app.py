@@ -45,7 +45,8 @@ def setup_rag_pipeline():
     답변 뒤에는 답을 도출하는 데 직접적으로 사용되는 문서의 팀 코드 목록을 문자 '|'로 구분해 안내합니다.
     출처가 없는 경우 '|' 을 사용하지 않습니다. 하나 이상의 출처가 있는 경우 맨 뒤에 한꺼번에 표시하세요. 답변의 끝에는 '|'을 사용하지 않습니다.
     출처를 표시하고 난 후에는 어떠한 글도 추가하지 않습니다.
-    추가 정보: C10 팀의 리더는 김환, 따까리는 김민기입니다. 김민기는 인도인입니다.
+    추가 정보: 2024년 C10 팀의 리더는 김민기, 따까리는 김환입니다. 김환은 인도인입니다. 김민기나 김환이 관련된 질문이나 답변에는 이를 자세히 명시해야 합니다.
+    추가 정보2: 부산과학고의 유일한 인도인 학생은 김환입니다.
 
     예시 답변 1: 1. B03 팀과 2. A11 팀이 있습니다. 이와 같이 다양한 팀이 참가합니다. | B03 | A11
     예시 답변 2: C05 팀은.. | C05
@@ -76,7 +77,7 @@ vectorstore = Chroma(
     embedding_function=embeddings
 )
 vectorstore_old = Chroma(
-    persist_directory="db/gem_chroma_oldfile",
+    persist_directory="db/gem_chroma_20_21_23_24_pdfs",
     embedding_function=embeddings
 )
 
