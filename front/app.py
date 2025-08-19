@@ -69,7 +69,7 @@ def find_document(docs, team_code, now_year):
             return doc
     return None
 
-st.title("한바다 🐬")
+st.title("한바다 v1.1🐬")
 st.header("2025 Ocean ICT 챗봇 도우미")
 
 vectorstore = Chroma(
