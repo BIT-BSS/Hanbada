@@ -1,0 +1,1060 @@
+tickChart.",
+"id": "CandlestickDomain",
+"properties": {
+"data": {
+"$ref": "ChartData",
+"description": "The data of the CandlestickDomain."
+},
+"reversed": {
+"description": "True to reverse the order of the domain values (horizontal axis).",
+"type": "boolean"
+}
+},
+"type": "object"
+},
+"CandlestickSeries": {
+"description": "The series of a CandlestickData.",
+"id": "CandlestickSeries",
+"properties": {
+"data": {
+"$ref": "ChartData",
+"description": "The data of the CandlestickSeries."
+}
+},
+"type": "object"
+},
+"CellData": {
+"description": "Data about a specific cell.",
+"id": "CellData",
+"properties": {
+"chipRuns": {
+"description": "Optional. Runs of chips applied to subsections of the cell. Properties of a run start at a specific index in the text and continue until the next run. When reading, all chipped and non-chipped runs are included. Non-chipped runs will have an empty Chip. When writing, only runs with chips are included. Runs containing chips are of length 1 and are represented in the user-entered text by an \u201c@\u201d placeholder symbol. New runs will overwrite any prior runs. Writing a new user_entered_value will erase previous runs.",
+"items": {
+"$ref": "ChipRun"
+},
+"type": "array"
+},
+"dataSourceFormula": {
+"$ref": "DataSourceFormula",
+"description": "Output only. Information about a data source formula on the cell. The field is set if user_entered_value is a formula referencing some DATA_SOURCE sheet, e.g. `=SUM(DataSheet!Column)`.",
+"readOnly": true
+},
+"dataSourceTable": {
+"$ref": "DataSourceTable",
+"description": "A data source table anchored at this cell. The size of data source table itself is computed dynamically based on its configuration. Only the first cell of the data source table contains the data source table definition. The other cells will contain the display values of the data source table result in their effective_value fields."
+},
+"dataValidation": {
+"$ref": "DataValidationRule",
+"description": "A data validation rule on the cell, if any. When writing, the new data validation rule will overwrite any prior rule."
+},
+"effectiveFormat": {
+"$ref": "CellFormat",
+"description": "The effective format being used by the cell. This includes the results of applying any conditional formatting and, if the cell contains a formula, the computed number format. If the effective format is the default format, effective format will not be written. This field is read-only."
+},
+"effectiveValue": {
+"$ref": "ExtendedValue",
+"description": "The effective value of the cell. For cells with formulas, this is the calculated value. For cells with literals, this is the same as the user_entered_value. This field is read-only."
+},
+"formattedValue": {
+"description": "The formatted value of the cell. This is the value as it's shown to the user. This field is read-only.",
+"type": "string"
+},
+"hyperlink": {
+"description": "A hyperlink this cell points to, if any. If the cell contains multiple hyperlinks, this field will be empty. This field is read-only. To set it, use a `=HYPERLINK` formula in the userEnteredValue.formulaValue field. A cell-level link can also be set from the userEnteredFormat.textFormat field. Alternatively, set a hyperlink in the textFormatRun.format.link field that spans the entire cell.",
+"type": "string"
+},
+"note": {
+"description": "Any note on the cell.",
+"type": "string"
+},
+"pivotTable": {
+"$ref": "PivotTable",
+"description": "A pivot table anchored at this cell. The size of pivot table itself is computed dynamically based on its data, grouping, filters, values, etc. Only the top-left cell of the pivot table contains the pivot table definition. The other cells will contain the calculated values of the results of the pivot in their effective_value fields."
+},
+"textFormatRuns": {
+"description": "Runs of rich text applied to subsections of the cell. Runs are only valid on user entered strings, not formulas, bools, or numbers. Properties of a run start at a specific index in the text and continue until the next run. Runs will inherit the properties of the cell unless explicitly changed. When writing, the new runs will overwrite any prior runs. When writing a new user_entered_value, previous runs are erased.",
+"items": {
+"$ref": "TextFormatRun"
+},
+"type": "array"
+},
+"userEnteredFormat": {
+"$ref": "CellFormat",
+"description": "The format the user entered for the cell. When writing, the new format will be merged with the existing format."
+},
+"userEnteredValue": {
+"$ref": "ExtendedValue",
+"description": "The value the user entered in the cell. e.g., `1234`, `'Hello'`, or `=NOW()` Note: Dates, Times and DateTimes are represented as doubles in serial number format."
+}
+},
+"type": "object"
+},
+"CellFormat": {
+"description": "The format of a cell.",
+"id": "CellFormat",
+"properties": {
+"backgroundColor": {
+"$ref": "Color",
+"deprecated": true,
+"description": "The background color of the cell. Deprecated: Use background_color_style."
+},
+"backgroundColorStyle": {
+"$ref": "ColorStyle",
+"description": "The background color of the cell. If background_color is also set, this field takes precedence."
+},
+"borders": {
+"$ref": "Borders",
+"description": "The borders of the cell."
+},
+"horizontalAlignment": {
+"description": "The horizontal alignment of the value in the cell.",
+"enum": [
+"HORIZONTAL_ALIGN_UNSPECIFIED",
+"LEFT",
+"CENTER",
+"RIGHT"
+],
+"enumDescriptions": [
+"The horizontal alignment is not specified. Do not use this.",
+"The text is explicitly aligned to the left of the cell.",
+"The text is explicitly aligned to the center of the cell.",
+"The text is explicitly aligned to the right of the cell."
+],
+"type": "string"
+},
+"hyperlinkDisplayType": {
+"description": "If one exists, how a hyperlink should be displayed in the cell.",
+"enum": [
+"HYPERLINK_DISPLAY_TYPE_UNSPECIFIED",
+"LINKED",
+"PLAIN_TEXT"
+],
+"enumDescriptions": [
+"The default value: the hyperlink is rendered. Do not use this.",
+"A hyperlink should be explicitly rendered.",
+"A hyperlink should not be rendered."
+],
+"type": "string"
+},
+"numberFormat": {
+"$ref": "NumberFormat",
+"description": "A format describing how number values should be represented to the user."
+},
+"padding": {
+"$ref": "Padding",
+"description": "The padding of the cell."
+},
+"textDirection": {
+"description": "The direction of the text in the cell.",
+"enum": [
+"TEXT_DIRECTION_UNSPECIFIED",
+"LEFT_TO_RIGHT",
+"RIGHT_TO_LEFT"
+],
+"enumDescriptions": [
+"The text direction is not specified. Do not use this.",
+"The text direction of left-to-right was set by the user.",
+"The text direction of right-to-left was set by the user."
+],
+"type": "string"
+},
+"textFormat": {
+"$ref": "TextFormat",
+"description": "The format of the text in the cell (unless overridden by a format run). Setting a cell-level link here clears the cell's existing links. Setting the link field in a TextFormatRun takes precedence over the cell-level link."
+},
+"textRotation": {
+"$ref": "TextRotation",
+"description": "The rotation applied to text in the cell."
+},
+"verticalAlignment": {
+"description": "The vertical alignment of the value in the cell.",
+"enum": [
+"VERTICAL_ALIGN_UNSPECIFIED",
+"TOP",
+"MIDDLE",
+"BOTTOM"
+],
+"enumDescriptions": [
+"The vertical alignment is not specified. Do not use this.",
+"The text is explicitly aligned to the top of the cell.",
+"The text is explicitly aligned to the middle of the cell.",
+"The text is explicitly aligned to the bottom of the cell."
+],
+"type": "string"
+},
+"wrapStrategy": {
+"description": "The wrap strategy for the value in the cell.",
+"enum": [
+"WRAP_STRATEGY_UNSPECIFIED",
+"OVERFLOW_CELL",
+"LEGACY_WRAP",
+"CLIP",
+"WRAP"
+],
+"enumDescriptions": [
+"The default value, do not use.",
+"Lines that are longer than the cell width will be written in the next cell over, so long as that cell is empty. If the next cell over is non-empty, this behaves the same as `CLIP`. The text will never wrap to the next line unless the user manually inserts a new line. Example: | First sentence. | | Manual newline that is very long. <- Text continues into next cell | Next newline. |",
+"This wrap strategy represents the old Google Sheets wrap strategy where words that are longer than a line are clipped rather than broken. This strategy is not supported on all platforms and is being phased out. Example: | Cell has a | | loooooooooo| <- Word is clipped. | word. |",
+"Lines that are longer than the cell width will be clipped. The text will never wrap to the next line unless the user manually inserts a new line. Example: | First sentence. | | Manual newline t| <- Text is clipped | Next newline. |",
+"Words that are longer than a line are wrapped at the character level rather than clipped. Example: | Cell has a | | loooooooooo| <- Word is broken. | ong word. |"
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"ChartAxisViewWindowOptions": {
+"description": "The options that define a \"view window\" for a chart (such as the visible values in an axis).",
+"id": "ChartAxisViewWindowOptions",
+"properties": {
+"viewWindowMax": {
+"description": "The maximum numeric value to be shown in this view window. If unset, will automatically determine a maximum value that looks good for the data.",
+"format": "double",
+"type": "number"
+},
+"viewWindowMin": {
+"description": "The minimum numeric value to be shown in this view window. If unset, will automatically determine a minimum value that looks good for the data.",
+"format": "double",
+"type": "number"
+},
+"viewWindowMode": {
+"description": "The view window's mode.",
+"enum": [
+"DEFAULT_VIEW_WINDOW_MODE",
+"VIEW_WINDOW_MODE_UNSUPPORTED",
+"EXPLICIT",
+"PRETTY"
+],
+"enumDescriptions": [
+"The default view window mode used in the Sheets editor for this chart type. In most cases, if set, the default mode is equivalent to `PRETTY`.",
+"Do not use. Represents that the currently set mode is not supported by the API.",
+"Follows the min and max exactly if specified. If a value is unspecified, it will fall back to the `PRETTY` value.",
+"Chooses a min and max that make the chart look good. Both min and max are ignored in this mode."
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"ChartCustomNumberFormatOptions": {
+"description": "Custom number formatting options for chart attributes.",
+"id": "ChartCustomNumberFormatOptions",
+"properties": {
+"prefix": {
+"description": "Custom prefix to be prepended to the chart attribute. This field is optional.",
+"type": "string"
+},
+"suffix": {
+"description": "Custom suffix to be appended to the chart attribute. This field is optional.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"ChartData": {
+"description": "The data included in a domain or series.",
+"id": "ChartData",
+"properties": {
+"aggregateType": {
+"description": "The aggregation type for the series of a data source chart. Only supported for data source charts.",
+"enum": [
+"CHART_AGGREGATE_TYPE_UNSPECIFIED",
+"AVERAGE",
+"COUNT",
+"MAX",
+"MEDIAN",
+"MIN",
+"SUM"
+],
+"enumDescriptions": [
+"Default value, do not use.",
+"Average aggregate function.",
+"Count aggregate function.",
+"Maximum aggregate function.",
+"Median aggregate function.",
+"Minimum aggregate function.",
+"Sum aggregate function."
+],
+"type": "string"
+},
+"columnReference": {
+"$ref": "DataSourceColumnReference",
+"description": "The reference to the data source column that the data reads from."
+},
+"groupRule": {
+"$ref": "ChartGroupRule",
+"description": "The rule to group the data by if the ChartData backs the domain of a data source chart. Only supported for data source charts."
+},
+"sourceRange": {
+"$ref": "ChartSourceRange",
+"description": "The source ranges of the data."
+}
+},
+"type": "object"
+},
+"ChartDateTimeRule": {
+"description": "Allows you to organize the date-time values in a source data column into buckets based on selected parts of their date or time values.",
+"id": "ChartDateTimeRule",
+"properties": {
+"type": {
+"description": "The type of date-time grouping to apply.",
+"enum": [
+"CHART_DATE_TIME_RULE_TYPE_UNSPECIFIED",
+"SECOND",
+"MINUTE",
+"HOUR",
+"HOUR_MINUTE",
+"HOUR_MINUTE_AMPM",
+"DAY_OF_WEEK",
+"DAY_OF_YEAR",
+"DAY_OF_MONTH",
+"DAY_MONTH",
+"MONTH",
+"QUARTER",
+"YEAR",
+"YEAR_MONTH",
+"YEAR_QUARTER",
+"YEAR_MONTH_DAY"
+],
+"enumDescriptions": [
+"The default type, do not use.",
+"Group dates by second, from 0 to 59.",
+"Group dates by minute, from 0 to 59.",
+"Group dates by hour using a 24-hour system, from 0 to 23.",
+"Group dates by hour and minute using a 24-hour system, for example 19:45.",
+"Group dates by hour and minute using a 12-hour system, for example 7:45 PM. The AM/PM designation is translated based on the spreadsheet locale.",
+"Group dates by day of week, for example Sunday. The days of the week will be translated based on the spreadsheet locale.",
+"Group dates by day of year, from 1 to 366. Note that dates after Feb. 29 fall in different buckets in leap years than in non-leap years.",
+"Group dates by day of month, from 1 to 31.",
+"Group dates by day and month, for example 22-Nov. The month is translated based on the spreadsheet locale.",
+"Group dates by month, for example Nov. The month is translated based on the spreadsheet locale.",
+"Group dates by quarter, for example Q1 (which represents Jan-Mar).",
+"Group dates by year, for example 2008.",
+"Group dates by year and month, for example 2008-Nov. The month is translated based on the spreadsheet locale.",
+"Group dates by year and quarter, for example 2008 Q4.",
+"Group dates by year, month, and day, for example 2008-11-22."
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"ChartGroupRule": {
+"description": "An optional setting on the ChartData of the domain of a data source chart that defines buckets for the values in the domain rather than breaking out each individual value. For example, when plotting a data source chart, you can specify a histogram rule on the domain (it should only contain numeric values), grouping its values into buckets. Any values of a chart series that fall into the same bucket are aggregated based on the aggregate_type.",
+"id": "ChartGroupRule",
+"properties": {
+"dateTimeRule": {
+"$ref": "ChartDateTimeRule",
+"description": "A ChartDateTimeRule."
+},
+"histogramRule": {
+"$ref": "ChartHistogramRule",
+"description": "A ChartHistogramRule"
+}
+},
+"type": "object"
+},
+"ChartHistogramRule": {
+"description": "Allows you to organize numeric values in a source data column into buckets of constant size.",
+"id": "ChartHistogramRule",
+"properties": {
+"intervalSize": {
+"description": "The size of the buckets that are created. Must be positive.",
+"format": "double",
+"type": "number"
+},
+"maxValue": {
+"description": "The maximum value at which items are placed into buckets. Values greater than the maximum are grouped into a single bucket. If omitted, it is determined by the maximum item value.",
+"format": "double",
+"type": "number"
+},
+"minValue": {
+"description": "The minimum value at which items are placed into buckets. Values that are less than the minimum are grouped into a single bucket. If omitted, it is determined by the minimum item value.",
+"format": "double",
+"type": "number"
+}
+},
+"type": "object"
+},
+"ChartSourceRange": {
+"description": "Source ranges for a chart.",
+"id": "ChartSourceRange",
+"properties": {
+"sources": {
+"description": "The ranges of data for a series or domain. Exactly one dimension must have a length of 1, and all sources in the list must have the same dimension with length 1. The domain (if it exists) & all series must have the same number of source ranges. If using more than one source range, then the source range at a given offset must be in order and contiguous across the domain and series. For example, these are valid configurations: domain sources: A1:A5 series1 sources: B1:B5 series2 sources: D6:D10 domain sources: A1:A5, C10:C12 series1 sources: B1:B5, D10:D12 series2 sources: C1:C5, E10:E12",
+"items": {
+"$ref": "GridRange"
+},
+"type": "array"
+}
+},
+"type": "object"
+},
+"ChartSpec": {
+"description": "The specifications of a chart.",
+"id": "ChartSpec",
+"properties": {
+"altText": {
+"description": "The alternative text that describes the chart. This is often used for accessibility.",
+"type": "string"
+},
+"backgroundColor": {
+"$ref": "Color",
+"deprecated": true,
+"description": "The background color of the entire chart. Not applicable to Org charts. Deprecated: Use background_color_style."
+},
+"backgroundColorStyle": {
+"$ref": "ColorStyle",
+"description": "The background color of the entire chart. Not applicable to Org charts. If background_color is also set, this field takes precedence."
+},
+"basicChart": {
+"$ref": "BasicChartSpec",
+"description": "A basic chart specification, can be one of many kinds of charts. See BasicChartType for the list of all charts this supports."
+},
+"bubbleChart": {
+"$ref": "BubbleChartSpec",
+"description": "A bubble chart specification."
+},
+"candlestickChart": {
+"$ref": "CandlestickChartSpec",
+"description": "A candlestick chart specification."
+},
+"dataSourceChartProperties": {
+"$ref": "DataSourceChartProperties",
+"description": "If present, the field contains data source chart specific properties."
+},
+"filterSpecs": {
+"description": "The filters applied to the source data of the chart. Only supported for data source charts.",
+"items": {
+"$ref": "FilterSpec"
+},
+"type": "array"
+},
+"fontName": {
+"description": "The name of the font to use by default for all chart text (e.g. title, axis labels, legend). If a font is specified for a specific part of the chart it will override this font name.",
+"type": "string"
+},
+"hiddenDimensionStrategy": {
+"description": "Determines how the charts will use hidden rows or columns.",
+"enum": [
+"CHART_HIDDEN_DIMENSION_STRATEGY_UNSPECIFIED",
+"SKIP_HIDDEN_ROWS_AND_COLUMNS",
+"SKIP_HIDDEN_ROWS",
+"SKIP_HIDDEN_COLUMNS",
+"SHOW_ALL"
+],
+"enumDescriptions": [
+"Default value, do not use.",
+"Charts will skip hidden rows and columns.",
+"Charts will skip hidden rows only.",
+"Charts will skip hidden columns only.",
+"Charts will not skip any hidden rows or columns."
+],
+"type": "string"
+},
+"histogramChart": {
+"$ref": "HistogramChartSpec",
+"description": "A histogram chart specification."
+},
+"maximized": {
+"description": "True to make a chart fill the entire space in which it's rendered with minimum padding. False to use the default padding. (Not applicable to Geo and Org charts.)",
+"type": "boolean"
+},
+"orgChart": {
+"$ref": "OrgChartSpec",
+"description": "An org chart specification."
+},
+"pieChart": {
+"$ref": "PieChartSpec",
+"description": "A pie chart specification."
+},
+"scorecardChart": {
+"$ref": "ScorecardChartSpec",
+"description": "A scorecard chart specification."
+},
+"sortSpecs": {
+"description": "The order to sort the chart data by. Only a single sort spec is supported. Only supported for data source charts.",
+"items": {
+"$ref": "SortSpec"
+},
+"type": "array"
+},
+"subtitle": {
+"description": "The subtitle of the chart.",
+"type": "string"
+},
+"subtitleTextFormat": {
+"$ref": "TextFormat",
+"description": "The subtitle text format. Strikethrough, underline, and link are not supported."
+},
+"subtitleTextPosition": {
+"$ref": "TextPosition",
+"description": "The subtitle text position. This field is optional."
+},
+"title": {
+"description": "The title of the chart.",
+"type": "string"
+},
+"titleTextFormat": {
+"$ref": "TextFormat",
+"description": "The title text format. Strikethrough, underline, and link are not supported."
+},
+"titleTextPosition": {
+"$ref": "TextPosition",
+"description": "The title text position. This field is optional."
+},
+"treemapChart": {
+"$ref": "TreemapChartSpec",
+"description": "A treemap chart specification."
+},
+"waterfallChart": {
+"$ref": "WaterfallChartSpec",
+"description": "A waterfall chart specification."
+}
+},
+"type": "object"
+},
+"Chip": {
+"description": "The Smart Chip.",
+"id": "Chip",
+"properties": {
+"personProperties": {
+"$ref": "PersonProperties",
+"description": "Properties of a linked person."
+},
+"richLinkProperties": {
+"$ref": "RichLinkProperties",
+"description": "Properties of a rich link."
+}
+},
+"type": "object"
+},
+"ChipRun": {
+"description": "The run of a chip. The chip continues until the start index of the next run.",
+"id": "ChipRun",
+"properties": {
+"chip": {
+"$ref": "Chip",
+"description": "Optional. The chip of this run."
+},
+"startIndex": {
+"description": "Required. The zero-based character index where this run starts, in UTF-16 code units.",
+"format": "int32",
+"type": "integer"
+}
+},
+"type": "object"
+},
+"ClearBasicFilterRequest": {
+"description": "Clears the basic filter, if any exists on the sheet.",
+"id": "ClearBasicFilterRequest",
+"properties": {
+"sheetId": {
+"description": "The sheet ID on which the basic filter should be cleared.",
+"format": "int32",
+"type": "integer"
+}
+},
+"type": "object"
+},
+"ClearValuesRequest": {
+"description": "The request for clearing a range of values in a spreadsheet.",
+"id": "ClearValuesRequest",
+"properties": {},
+"type": "object"
+},
+"ClearValuesResponse": {
+"description": "The response when clearing a range of values in a spreadsheet.",
+"id": "ClearValuesResponse",
+"properties": {
+"clearedRange": {
+"description": "The range (in A1 notation) that was cleared. (If the request was for an unbounded range or a ranger larger than the bounds of the sheet, this will be the actual range that was cleared, bounded to the sheet's limits.)",
+"type": "string"
+},
+"spreadsheetId": {
+"description": "The spreadsheet the updates were applied to.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"Color": {
+"description": "Represents a color in the RGBA color space. This representation is designed for simplicity of conversion to and from color representations in various languages over compactness. For example, the fields of this representation can be trivially provided to the constructor of `java.awt.Color` in Java; it can also be trivially provided to UIColor's `+colorWithRed:green:blue:alpha` method in iOS; and, with just a little work, it can be easily formatted into a CSS `rgba()` string in JavaScript. This reference page doesn't have information about the absolute color space that should be used to interpret the RGB value\u2014for example, sRGB, Adobe RGB, DCI-P3, and BT.2020. By default, applications should assume the sRGB color space. When color equality needs to be decided, implementations, unless documented otherwise, treat two colors as equal if all their red, green, blue, and alpha values each differ by at most `1e-5`. Example (Java): import com.google.type.Color; // ... public static java.awt.Color fromProto(Color protocolor) { float alpha = protocolor.hasAlpha() ? protocolor.getAlpha().getValue() : 1.0; return new java.awt.Color( protocolor.getRed(), protocolor.getGreen(), protocolor.getBlue(), alpha); } public static Color toProto(java.awt.Color color) { float red = (float) color.getRed(); float green = (float) color.getGreen(); float blue = (float) color.getBlue(); float denominator = 255.0; Color.Builder resultBuilder = Color .newBuilder() .setRed(red / denominator) .setGreen(green / denominator) .setBlue(blue / denominator); int alpha = color.getAlpha(); if (alpha != 255) { result.setAlpha( FloatValue .newBuilder() .setValue(((float) alpha) / denominator) .build()); } return resultBuilder.build(); } // ... Example (iOS / Obj-C): // ... static UIColor* fromProto(Color* protocolor) { float red = [protocolor red]; float green = [protocolor green]; float blue = [protocolor blue]; FloatValue* alpha_wrapper = [protocolor alpha]; float alpha = 1.0; if (alpha_wrapper != nil) { alpha = [alpha_wrapper value]; } return [UIColor colorWithRed:red green:green blue:blue alpha:alpha]; } static Color* toProto(UIColor* color) { CGFloat red, green, blue, alpha; if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) { return nil; } Color* result = [[Color alloc] init]; [result setRed:red]; [result setGreen:green]; [result setBlue:blue]; if (alpha <= 0.9999) { [result setAlpha:floatWrapperWithValue(alpha)]; } [result autorelease]; return result; } // ... Example (JavaScript): // ... var protoToCssColor = function(rgb_color) { var redFrac = rgb_color.red || 0.0; var greenFrac = rgb_color.green || 0.0; var blueFrac = rgb_color.blue || 0.0; var red = Math.floor(redFrac * 255); var green = Math.floor(greenFrac * 255); var blue = Math.floor(blueFrac * 255); if (!('alpha' in rgb_color)) { return rgbToCssColor(red, green, blue); } var alphaFrac = rgb_color.alpha.value || 0.0; var rgbParams = [red, green, blue].join(','); return ['rgba(', rgbParams, ',', alphaFrac, ')'].join(''); }; var rgbToCssColor = function(red, green, blue) { var rgbNumber = new Number((red << 16) | (green << 8) | blue); var hexString = rgbNumber.toString(16); var missingZeros = 6 - hexString.length; var resultBuilder = ['#']; for (var i = 0; i < missingZeros; i++) { resultBuilder.push('0'); } resultBuilder.push(hexString); return resultBuilder.join(''); }; // ...",
+"id": "Color",
+"properties": {
+"alpha": {
+"description": "The fraction of this color that should be applied to the pixel. That is, the final pixel color is defined by the equation: `pixel color = alpha * (this color) + (1.0 - alpha) * (background color)` This means that a value of 1.0 corresponds to a solid color, whereas a value of 0.0 corresponds to a completely transparent color. This uses a wrapper message rather than a simple float scalar so that it is possible to distinguish between a default value and the value being unset. If omitted, this color object is rendered as a solid color (as if the alpha value had been explicitly given a value of 1.0).",
+"format": "float",
+"type": "number"
+},
+"blue": {
+"description": "The amount of blue in the color as a value in the interval [0, 1].",
+"format": "float",
+"type": "number"
+},
+"green": {
+"description": "The amount of green in the color as a value in the interval [0, 1].",
+"format": "float",
+"type": "number"
+},
+"red": {
+"description": "The amount of red in the color as a value in the interval [0, 1].",
+"format": "float",
+"type": "number"
+}
+},
+"type": "object"
+},
+"ColorStyle": {
+"description": "A color value.",
+"id": "ColorStyle",
+"properties": {
+"rgbColor": {
+"$ref": "Color",
+"description": "RGB color. The [`alpha`](https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/other#Color.FIELDS.alpha) value in the [`Color`](https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/other#color) object isn't generally supported."
+},
+"themeColor": {
+"description": "Theme color.",
+"enum": [
+"THEME_COLOR_TYPE_UNSPECIFIED",
+"TEXT",
+"BACKGROUND",
+"ACCENT1",
+"ACCENT2",
+"ACCENT3",
+"ACCENT4",
+"ACCENT5",
+"ACCENT6",
+"LINK"
+],
+"enumDescriptions": [
+"Unspecified theme color",
+"Represents the primary text color",
+"Represents the primary background color",
+"Represents the first accent color",
+"Represents the second accent color",
+"Represents the third accent color",
+"Represents the fourth accent color",
+"Represents the fifth accent color",
+"Represents the sixth accent color",
+"Represents the color to use for hyperlinks"
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"ConditionValue": {
+"description": "The value of the condition.",
+"id": "ConditionValue",
+"properties": {
+"relativeDate": {
+"description": "A relative date (based on the current date). Valid only if the type is DATE_BEFORE, DATE_AFTER, DATE_ON_OR_BEFORE or DATE_ON_OR_AFTER. Relative dates are not supported in data validation. They are supported only in conditional formatting and conditional filters.",
+"enum": [
+"RELATIVE_DATE_UNSPECIFIED",
+"PAST_YEAR",
+"PAST_MONTH",
+"PAST_WEEK",
+"YESTERDAY",
+"TODAY",
+"TOMORROW"
+],
+"enumDescriptions": [
+"Default value, do not use.",
+"The value is one year before today.",
+"The value is one month before today.",
+"The value is one week before today.",
+"The value is yesterday.",
+"The value is today.",
+"The value is tomorrow."
+],
+"type": "string"
+},
+"userEnteredValue": {
+"description": "A value the condition is based on. The value is parsed as if the user typed into a cell. Formulas are supported (and must begin with an `=` or a '+').",
+"type": "string"
+}
+},
+"type": "object"
+},
+"ConditionalFormatRule": {
+"description": "A rule describing a conditional format.",
+"id": "ConditionalFormatRule",
+"properties": {
+"booleanRule": {
+"$ref": "BooleanRule",
+"description": "The formatting is either \"on\" or \"off\" according to the rule."
+},
+"gradientRule": {
+"$ref": "GradientRule",
+"description": "The formatting will vary based on the gradients in the rule."
+},
+"ranges": {
+"description": "The ranges that are formatted if the condition is true. All the ranges must be on the same grid.",
+"items": {
+"$ref": "GridRange"
+},
+"type": "array"
+}
+},
+"type": "object"
+},
+"CopyPasteRequest": {
+"description": "Copies data from the source to the destination.",
+"id": "CopyPasteRequest",
+"properties": {
+"destination": {
+"$ref": "GridRange",
+"description": "The location to paste to. If the range covers a span that's a multiple of the source's height or width, then the data will be repeated to fill in the destination range. If the range is smaller than the source range, the entire source data will still be copied (beyond the end of the destination range)."
+},
+"pasteOrientation": {
+"description": "How that data should be oriented when pasting.",
+"enum": [
+"NORMAL",
+"TRANSPOSE"
+],
+"enumDescriptions": [
+"Paste normally.",
+"Paste transposed, where all rows become columns and vice versa."
+],
+"type": "string"
+},
+"pasteType": {
+"description": "What kind of data to paste.",
+"enum": [
+"PASTE_NORMAL",
+"PASTE_VALUES",
+"PASTE_FORMAT",
+"PASTE_NO_BORDERS",
+"PASTE_FORMULA",
+"PASTE_DATA_VALIDATION",
+"PASTE_CONDITIONAL_FORMATTING"
+],
+"enumDescriptions": [
+"Paste values, formulas, formats, and merges.",
+"Paste the values ONLY without formats, formulas, or merges.",
+"Paste the format and data validation only.",
+"Like `PASTE_NORMAL` but without borders.",
+"Paste the formulas only.",
+"Paste the data validation only.",
+"Paste the conditional formatting rules only."
+],
+"type": "string"
+},
+"source": {
+"$ref": "GridRange",
+"description": "The source range to copy."
+}
+},
+"type": "object"
+},
+"CopySheetToAnotherSpreadsheetRequest": {
+"description": "The request to copy a sheet across spreadsheets.",
+"id": "CopySheetToAnotherSpreadsheetRequest",
+"properties": {
+"destinationSpreadsheetId": {
+"description": "The ID of the spreadsheet to copy the sheet to.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"CreateDeveloperMetadataRequest": {
+"description": "A request to create developer metadata.",
+"id": "CreateDeveloperMetadataRequest",
+"properties": {
+"developerMetadata": {
+"$ref": "DeveloperMetadata",
+"description": "The developer metadata to create."
+}
+},
+"type": "object"
+},
+"CreateDeveloperMetadataResponse": {
+"description": "The response from creating developer metadata.",
+"id": "CreateDeveloperMetadataResponse",
+"properties": {
+"developerMetadata": {
+"$ref": "DeveloperMetadata",
+"description": "The developer metadata that was created."
+}
+},
+"type": "object"
+},
+"CutPasteRequest": {
+"description": "Moves data from the source to the destination.",
+"id": "CutPasteRequest",
+"properties": {
+"destination": {
+"$ref": "GridCoordinate",
+"description": "The top-left coordinate where the data should be pasted."
+},
+"pasteType": {
+"description": "What kind of data to paste. All the source data will be cut, regardless of what is pasted.",
+"enum": [
+"PASTE_NORMAL",
+"PASTE_VALUES",
+"PASTE_FORMAT",
+"PASTE_NO_BORDERS",
+"PASTE_FORMULA",
+"PASTE_DATA_VALIDATION",
+"PASTE_CONDITIONAL_FORMATTING"
+],
+"enumDescriptions": [
+"Paste values, formulas, formats, and merges.",
+"Paste the values ONLY without formats, formulas, or merges.",
+"Paste the format and data validation only.",
+"Like `PASTE_NORMAL` but without borders.",
+"Paste the formulas only.",
+"Paste the data validation only.",
+"Paste the conditional formatting rules only."
+],
+"type": "string"
+},
+"source": {
+"$ref": "GridRange",
+"description": "The source data to cut."
+}
+},
+"type": "object"
+},
+"DataExecutionStatus": {
+"description": "The data execution status. A data execution is created to sync a data source object with the latest data from a DataSource. It is usually scheduled to run at background, you can check its state to tell if an execution completes There are several scenarios where a data execution is triggered to run: * Adding a data source creates an associated data source sheet as well as a data execution to sync the data from the data source to the sheet. * Updating a data source creates a data execution to refresh the associated data source sheet similarly. * You can send refresh request to explicitly refresh one or multiple data source objects.",
+"id": "DataExecutionStatus",
+"properties": {
+"errorCode": {
+"description": "The error code.",
+"enum": [
+"DATA_EXECUTION_ERROR_CODE_UNSPECIFIED",
+"TIMED_OUT",
+"TOO_MANY_ROWS",
+"TOO_MANY_COLUMNS",
+"TOO_MANY_CELLS",
+"ENGINE",
+"PARAMETER_INVALID",
+"UNSUPPORTED_DATA_TYPE",
+"DUPLICATE_COLUMN_NAMES",
+"INTERRUPTED",
+"CONCURRENT_QUERY",
+"OTHER",
+"TOO_MANY_CHARS_PER_CELL",
+"DATA_NOT_FOUND",
+"PERMISSION_DENIED",
+"MISSING_COLUMN_ALIAS",
+"OBJECT_NOT_FOUND",
+"OBJECT_IN_ERROR_STATE",
+"OBJECT_SPEC_INVALID",
+"DATA_EXECUTION_CANCELLED"
+],
+"enumDescriptions": [
+"Default value, do not use.",
+"The data execution timed out.",
+"The data execution returns more rows than the limit.",
+"The data execution returns more columns than the limit.",
+"The data execution returns more cells than the limit.",
+"Error is received from the backend data execution engine (e.g. BigQuery). Check error_message for details.",
+"One or some of the provided data source parameters are invalid.",
+"The data execution returns an unsupported data type.",
+"The data execution returns duplicate column names or aliases.",
+"The data execution is interrupted. Please refresh later.",
+"The data execution is currently in progress, can not be refreshed until it completes.",
+"Other errors.",
+"The data execution returns values that exceed the maximum characters allowed in a single cell.",
+"The database referenced by the data source is not found. */",
+"The user does not have access to the database referenced by the data source.",
+"The data execution returns columns with missing aliases.",
+"The data source object does not exist.",
+"The data source object is currently in error state. To force refresh, set force in RefreshDataSourceRequest.",
+"The data source object specification is invalid.",
+"The data execution has been cancelled."
+],
+"type": "string"
+},
+"errorMessage": {
+"description": "The error message, which may be empty.",
+"type": "string"
+},
+"lastRefreshTime": {
+"description": "Gets the time the data last successfully refreshed.",
+"format": "google-datetime",
+"type": "string"
+},
+"state": {
+"description": "The state of the data execution.",
+"enum": [
+"DATA_EXECUTION_STATE_UNSPECIFIED",
+"NOT_STARTED",
+"RUNNING",
+"CANCELLING",
+"SUCCEEDED",
+"FAILED"
+],
+"enumDescriptions": [
+"Default value, do not use.",
+"The data execution has not started.",
+"The data execution has started and is running.",
+"The data execution is currently being cancelled.",
+"The data execution has completed successfully.",
+"The data execution has completed with errors."
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"DataFilter": {
+"description": "Filter that describes what data should be selected or returned from a request.",
+"id": "DataFilter",
+"properties": {
+"a1Range": {
+"description": "Selects data that matches the specified A1 range.",
+"type": "string"
+},
+"developerMetadataLookup": {
+"$ref": "DeveloperMetadataLookup",
+"description": "Selects data associated with the developer metadata matching the criteria described by this DeveloperMetadataLookup."
+},
+"gridRange": {
+"$ref": "GridRange",
+"description": "Selects data that matches the range described by the GridRange."
+}
+},
+"type": "object"
+},
+"DataFilterValueRange": {
+"description": "A range of values whose location is specified by a DataFilter.",
+"id": "DataFilterValueRange",
+"properties": {
+"dataFilter": {
+"$ref": "DataFilter",
+"description": "The data filter describing the location of the values in the spreadsheet."
+},
+"majorDimension": {
+"description": "The major dimension of the values.",
+"enum": [
+"DIMENSION_UNSPECIFIED",
+"ROWS",
+"COLUMNS"
+],
+"enumDescriptions": [
+"The default value, do not use.",
+"Operates on the rows of a sheet.",
+"Operates on the columns of a sheet."
+],
+"type": "string"
+},
+"values": {
+"description": "The data to be written. If the provided values exceed any of the ranges matched by the data filter then the request fails. If the provided values are less than the matched ranges only the specified values are written, existing values in the matched ranges remain unaffected.",
+"items": {
+"items": {
+"type": "any"
+},
+"type": "array"
+},
+"type": "array"
+}
+},
+"type": "object"
+},
+"DataLabel": {
+"description": "Settings for one set of data labels. Data labels are annotations that appear next to a set of data, such as the points on a line chart, and provide additional information about what the data represents, such as a text representation of the value behind that point on the graph.",
+"id": "DataLabel",
+"properties": {
+"customLabelData": {
+"$ref": "ChartData",
+"description": "Data to use for custom labels. Only used if type is set to CUSTOM. This data must be the same length as the series or other element this data label is applied to. In addition, if the series is split into multiple source ranges, this source data must come from the next column in the source data. For example, if the series is B2:B4,E6:E8 then this data must come from C2:C4,F6:F8."
+},
+"placement": {
+"description": "The placement of the data label relative to the labeled data.",
+"enum": [
+"DATA_LABEL_PLACEMENT_UNSPECIFIED",
+"CENTER",
+"LEFT",
+"RIGHT",
+"ABOVE",
+"BELOW",
+"INSIDE_END",
+"INSIDE_BASE",
+"OUTSIDE_END"
+],
+"enumDescriptions": [
+"The positioning is determined automatically by the renderer.",
+"Center within a bar or column, both horizontally and vertically.",
+"To the left of a data point.",
+"To the right of a data point.",
+"Above a data point.",
+"Below a data point.",
+"Inside a bar or column at the end (top if positive, bottom if negative).",
+"Inside a bar or column at the base.",
+"Outside a bar or column at the end."
+],
+"type": "string"
+},
+"textFormat": {
+"$ref": "TextFormat",
+"description": "The text format used for the data label. The link field is not supported."
+},
+"type": {
+"description": "The type of the data label.",
+"enum": [
+"DATA_LABEL_TYPE_UNSPECIFIED",
+"NONE",
+"DATA",
+"CUSTOM"
+],
+"enumDescriptions": [
+"The data label type is not specified and will be interpreted depending on the context of the data label within the chart.",
+"The data label is not displayed.",
+"The data label is displayed using values from the series data.",
+"The data label is displayed using values from a custom data source indicated by customLabelData."
+],
+"type": "string"
+}
+},
+"type": "object"
+},
+"DataSource": {
+"description": "Information about an external data source in the spreadsheet.",
+"id": "DataSource",
+"properties": {
+"calculatedColumns": {
+"description": "All calculated columns in the data source.",
+"items": {
+"$ref": "DataSourceColumn"
+},
+"type": "array"
+},
+"dataSourceId": {
+"description": "The spreadsheet-scoped unique ID that identifies the data source. Example: 1080547365.",
+"type": "string"
+},
+"sheetId": {
+"description": "The ID of the Sheet connected with the data source. The field cannot be changed once set. When creating a data source, an associated DATA_SOURCE sheet is also created, if the field is not specified, the ID of the created sheet will be randomly generated.",
+"format": "int32",
+"type": "integer"
+},
+"spec": {
+"$ref": "DataSourceSpec",
+"description": "The DataSourceSpec for the data source connected with this spreadsheet."
+}
+},
+"type": "object"
+},
+"DataSourceChartProperties": {
+"description": "Properties of a data source chart.",
+"id": "DataSourceChartProperties",
+"properties": {
+"dataExecutionStatus": {
+"$ref": "DataExecutionStatus",
+"description": "Output only. The data execution status.",
+"readOnly": true
+},
+"dataSourceId": {
+"description": "ID of the data source that the chart is associated with.",
+"type": "string"
+}
+},
+"type": "object"
+},
+"DataSourceColumn": {
+"descript

@@ -13,6 +13,7 @@ langchain-core
 langchain-community
 langchain-google-genai
 langchain-chroma
+pysqlite3-binary
 chromadb
 pandas
 protobuf<5

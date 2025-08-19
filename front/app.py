@@ -45,15 +45,13 @@ def setup_rag_pipeline():
     답변 뒤에는 답을 도출하는 데 직접적으로 사용되는 문서의 팀 코드 목록을 문자 '|'로 구분해 안내합니다.
     출처가 없는 경우 '|' 을 사용하지 않습니다. 하나 이상의 출처가 있는 경우 맨 뒤에 한꺼번에 표시하세요. 답변의 끝에는 '|'을 사용하지 않습니다.
     출처를 표시하고 난 후에는 어떠한 글도 추가하지 않습니다.
-    추가 정보: C10 팀의 리더는 김환, 따까리는 김민기입니다. 김민기는 인도인입니다.
-
     예시 답변 1: 1. B03 팀과 2. A11 팀이 있습니다. 이와 같이 다양한 팀이 참가합니다. | B03 | A11
     예시 답변 2: C05 팀은.. | C05
 
     #질문:
     부산과학고 Ocean ICT에서 {question} 자세하게 답변해줘.
     #정보:
-    2025년에 열린 제 8회 Ocean ICT에는 총 84팀, 320명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
+    2025년에 열린 제 8회 Ocean ICT에는 총 84팀, 242명이 참가하였다. 다음은 참가한 팀들의 포스터 중 질문과 관계된 일부이다.
     {context}
 
     #답변:"""
@@ -76,7 +74,7 @@ vectorstore = Chroma(
     embedding_function=embeddings
 )
 vectorstore_old = Chroma(
-    persist_directory="db/gem_chroma_oldfile",
+    persist_directory="db/gem_chroma_20_21_23_24_pdfs",
     embedding_function=embeddings
 )
 
@@ -153,8 +151,9 @@ if prompt := st.chat_input("질문을 입력하세요"):
             used_doc_vid = used_doc.metadata['Youtube link']
             show_loc_img = lambda: st.session_state.messages.append({"role": "image", "content": get_location_image(used_team_code[0])})
 
-            st.video(used_doc_vid)
-            st.session_state.messages.append({"role": "video", "content": used_doc_vid})
+            if 'https' in used_doc_vid:
+                st.video(used_doc_vid)
+                st.session_state.messages.append({"role": "video", "content": used_doc_vid})
 
             col1, col2 = st.columns([1, 4])
             if now_year == '2025':
