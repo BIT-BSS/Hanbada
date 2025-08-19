@@ -149,7 +149,7 @@ def get_location_image(team_code):
     return edited
 
 # === 실행 예시 ===
-if __name__ == "__main__":
-    img = get_location_image("B06")
-    img.show()  # 화면에서 바로 보기
+# if __name__ == "__main__":
+#     img = get_location_image("B06")
+#     img.show()  # 화면에서 바로 보기
 
