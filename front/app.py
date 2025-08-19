@@ -8,9 +8,9 @@ from yeardistribution import YearDistribution
 
 from datetime import datetime, timedelta
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+#__import__('pysqlite3')
+#import sys
+#sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import sqlite3
 
@@ -129,6 +129,10 @@ if prompt := st.chat_input("질문을 입력하세요"):
         else:
             now_retriever = retriever.get_ensemble_retriever()
             now_query_constructor = retriever.get_query_constructor()
+        structured_query = now_query_constructor.invoke(prompt)
+        print(f"실제 query: {structured_query.query}")
+        print(f"실제 filter: {structured_query.filter}")
+        
         docs = now_retriever.invoke(prompt)
         stream = qa_chain.stream(
             {
@@ -170,5 +174,6 @@ if prompt := st.chat_input("질문을 입력하세요"):
         googlesheet.append_data(values, 'Sheet1!A1')
     except Exception as e:
         with st.chat_message(name="assistant", avatar='🐋'):
+            print(prompt)
             response = st.markdown('다시 시도해 주세요!\n')
             st.markdown(e)

@@ -3,9 +3,9 @@ from db import GooglesheetUtils
 from loc_image import get_location_image
 from datetime import datetime, timedelta
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+#__import__('pysqlite3')
+#import sys
+#sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import sqlite3
 
@@ -199,6 +199,13 @@ class CustomRetriever():
                 "query": "머신러닝을 사용하지 않은 팀이 있을까?",
                 "filter": "NO_FILTER",
             }
+        ),
+        (
+            "B에는 팀이 몇개야?",
+            {
+                "query": "팀 번호가 B로 시작하는 프로젝트의 개수는 몇개야?",
+                "filter": "NO_FILTER",
+            }
         )
         
     ]
@@ -206,7 +213,8 @@ class CustomRetriever():
     def __init__(self, _vectorstore):
         self.vectorstore = _vectorstore
         self.query_prompt = get_query_constructor_prompt(
-            'Ocean ICT 대회에 참가한 팀의 작품 설명서. 질문에 연도(예: 작년, 2024년, 2023년 등)가 포함되면 해당 연도의 정보를 필터링해서 답변하세요.',
+            '''Ocean ICT 대회에 참가한 팀의 작품 설명서. 질문에 연도(예: 작년, 2024년, 2023년 등)가 포함되면 해당 연도의 정보를 필터링해서 답변하세요.
+            filter 조건은 반드시 eq(정확 일치)만 사용하세요. like, contains 등 부분 일치 연산자는 사용하지 마세요.''',
             self.metadata_field_info,
             examples=self.examples
         )
